@@ -8,7 +8,6 @@ export function Navbar() {
     const navigate = useNavigate()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const user = currentTeacher
-    const basePath = "/teacher"
 
     const links = [
         {
@@ -34,7 +33,7 @@ export function Navbar() {
     ]
 
     const isActive = (path: string) => {
-        if (path === "/" || path === "/teacher") {
+        if (path === "/" || path === "/dashboard") {
             return location.pathname === path
         }
         return location.pathname.startsWith(path)
@@ -45,7 +44,7 @@ export function Navbar() {
     return (
         <nav className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-border z-50 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
-                <Link to={basePath || "/"} className="flex items-center gap-2 text-primary font-bold text-xl">
+                <Link to="/dashboard" className="flex items-center gap-2 text-primary font-bold text-xl">
                     <BookOpen className="text-primary" />
                     <span>Re:Write</span>
                 </Link>
