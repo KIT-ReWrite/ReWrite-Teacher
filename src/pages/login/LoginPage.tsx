@@ -4,7 +4,7 @@ import AuthForm from "@/features/auth/ui/AuthForm"
  */
 const LoginPage = () => {
     return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="min-h-screen w-full bg-background flex items-center justify-center p-4 py-12">
             <AuthForm type="login" />
         </div>
     )

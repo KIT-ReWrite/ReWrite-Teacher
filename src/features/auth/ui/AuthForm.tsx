@@ -34,14 +34,14 @@ const AuthForm = ({ type }: IAuthProp) => {
                 opacity: 1,
                 scale: 1,
             }}
-            className="w-full max-w-md bg-white rounded-2xl shadow-card p-8 border border-border"
+            className="bg-white w-full max-w-md rounded-2xl shadow-card p-8 border border-border"
         >
             <div className="flex flex-col items-center mb-8">
                 <div className="w-12 h-12 bg-primary-light rounded-2xl flex items-center justify-center mb-4">
                     <BookOpen className="stroke-primary" size={28} />
                 </div>
-                <h1 className="text-2xl font-bold text-text-primary">Re:Write에 오신 것을 환영합니다</h1>
-                <p className="text-text-secondary mt-2">선생님 전용 서비스입니다</p>
+                <h1 className="text-2xl font-bold text-text-primary">Re:Write</h1>
+                <p className="text-text-secondary mt-2">{type == "login" ? "로그인" : "회원가입"}</p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-4">
@@ -135,14 +135,14 @@ const AuthForm = ({ type }: IAuthProp) => {
                     type="submit"
                     className="w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 rounded-xl transition-colors mt-6"
                 >
-                    로그인
+                    {type == "login" ? "로그인" : "회원가입"}
                 </button>
             </form>
 
             <div className="mt-6 text-center text-sm text-text-secondary">
-                계정이 없으신가요?{" "}
-                <Link to="/signup" className="text-primary font-medium hover:underline">
-                    회원가입
+                {type == "login" ? "계정이 없으신가요? " : "계정이 있으신가요? "}
+                <Link to={type == "login" ? "/signup" : "/login"} className="text-primary font-medium hover:underline">
+                    {type == "login" ? "회원가입" : "로그인"}
                 </Link>
             </div>
         </motion.div>
