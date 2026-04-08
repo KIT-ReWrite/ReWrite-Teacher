@@ -24,7 +24,7 @@ export function FeedbackStudents() {
                             <p className="text-xs text-red-500">최근 점수 {student.recent_score}점</p>
                         </div>
 
-                        <button onClick={() => navigate(`/teacher/classes/1/students`)}>
+                        <button onClick={() => navigate(`/classes/1/students`)}>
                             <ChevronRight />
                         </button>
                     </div>

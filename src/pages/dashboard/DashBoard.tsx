@@ -7,7 +7,6 @@ import { currentTeacher } from "@/shared/model/mockData"
 function DashBoardPage() {
     return (
         <PageLayout
-            role="teacher"
             title={`안녕하세요, ${currentTeacher.name} 선생님! 👨‍🏫`}
             description="오늘의 학급 현황을 확인하세요."
         >

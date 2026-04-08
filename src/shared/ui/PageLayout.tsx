@@ -3,7 +3,6 @@ import { Navbar } from "./Navbar"
 import { motion } from "framer-motion"
 interface PageLayoutProps {
     children: React.ReactNode
-    role: "student" | "teacher"
     title?: string
     description?: string
     action?: React.ReactNode
