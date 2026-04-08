@@ -8,6 +8,7 @@ import MyPage from "@/pages/mypage/MyPage"
 import SignupPage from "@/pages/signup/SignupPage"
 import StudentDetailPage from "@/pages/students/StudentDetailPage"
 import StudentsPage from "@/pages/students/StudentsPage"
+import SubmissionsPage from "@/pages/submissions/SubmissionsPage"
 import AuthGuard from "@/shared/lib/AuthGuard"
 import RootRedirect from "@/shared/lib/RootRedirect"
 import { createBrowserRouter } from "react-router"
@@ -62,6 +63,10 @@ export const router = createBrowserRouter(
                         {
                             path: "/assignments/create",
                             element: <AssignmentCreatePage />,
+                        },
+                        {
+                            path: "/assignments/:id/submissions",
+                            element: <SubmissionsPage />,
                         },
                     ],
                 },
