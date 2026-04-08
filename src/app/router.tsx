@@ -3,6 +3,7 @@ import AssignmentsPage from "@/pages/assignments/AssignmentsPage"
 import ClassDetailPage from "@/pages/classes/ClassDetailPage"
 import ClassesPage from "@/pages/classes/ClassesPage"
 import DashBoardPage from "@/pages/dashboard/DashBoard"
+import GradingPage from "@/pages/grading/GradingPage"
 import LoginPage from "@/pages/login/LoginPage"
 import MyPage from "@/pages/mypage/MyPage"
 import SignupPage from "@/pages/signup/SignupPage"
@@ -67,6 +68,14 @@ export const router = createBrowserRouter(
                         {
                             path: "/assignments/:id/submissions",
                             element: <SubmissionsPage />,
+                        },
+                        {
+                            path: "/assignments/:id/submissions",
+                            element: <SubmissionsPage />,
+                        },
+                        {
+                            path: "/submissions/:id",
+                            element: <GradingPage />,
                         },
                     ],
                 },
