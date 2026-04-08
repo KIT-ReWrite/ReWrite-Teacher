@@ -4,6 +4,8 @@ import DashBoardPage from "@/pages/dashboard/DashBoard"
 import LoginPage from "@/pages/login/LoginPage"
 import MyPage from "@/pages/mypage/MyPage"
 import SignupPage from "@/pages/signup/SignupPage"
+import StudentDetailPage from "@/pages/students/StudentDetailPage"
+import StudentsPage from "@/pages/students/StudentsPage"
 import AuthGuard from "@/shared/lib/AuthGuard"
 import RootRedirect from "@/shared/lib/RootRedirect"
 import { createBrowserRouter } from "react-router"
@@ -42,6 +44,14 @@ export const router = createBrowserRouter(
                         {
                             path: "/classes/:id",
                             element: <ClassDetailPage />,
+                        },
+                        {
+                            path: "/classes/:id/students",
+                            element: <StudentsPage />,
+                        },
+                        {
+                            path: "/classes/:classId/students/:studentId",
+                            element: <StudentDetailPage />,
                         },
                     ],
                 },
