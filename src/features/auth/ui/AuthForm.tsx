@@ -132,6 +132,7 @@ const AuthForm = ({ type }: IAuthProp) => {
                 </div>
 
                 <button
+                    onClick={() => navigate(type == "login" ? "/dashboard" : "login")}
                     type="submit"
                     className="w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 rounded-xl transition-colors mt-6"
                 >
