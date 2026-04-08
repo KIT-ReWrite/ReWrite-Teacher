@@ -31,7 +31,7 @@ export function SubmissionTable({ submissions }: any) {
 
                             <td className="py-4 px-4 text-right">
                                 <button
-                                    onClick={() => navigate(`/teacher/submissions/${sub.id}`)}
+                                    onClick={() => navigate(`/submissions/${sub.id}`)}
                                     className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors
                                     ${
                                         sub.status === "graded"
