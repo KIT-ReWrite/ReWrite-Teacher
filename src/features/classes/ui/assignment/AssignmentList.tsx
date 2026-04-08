@@ -17,7 +17,7 @@ export function AssignmentList({ classId, totalStudents }: any) {
                         과제 목록
                     </h2>
                     <button
-                        onClick={() => navigate("/teacher/assignments/create")}
+                        onClick={() => navigate("/assignments/create")}
                         className="text-sm text-primary hover:text-primary-hover font-medium flex items-center gap-1"
                     >
                         <PlusCircle size={16} />새 과제

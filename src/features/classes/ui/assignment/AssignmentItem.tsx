@@ -7,7 +7,7 @@ export function AssignmentItem({ assignment, totalStudents }: any) {
     return (
         <div
             key={assignment.id}
-            onClick={() => navigate(`/teacher/assignments/${assignment.id}/submissions`)}
+            onClick={() => navigate(`/assignments/${assignment.id}/submissions`)}
             className="p-4 rounded-xl border border-gray-100 hover:border-primary/30 hover:bg-primary-light/10 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4"
         >
             <div>
