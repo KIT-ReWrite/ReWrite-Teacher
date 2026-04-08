@@ -156,6 +156,6 @@
         @apply w-full py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all bg-white;
     }
     .notion-textarea {
-        @apply w-full py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all bg-white resize-y min-h-[120px];
+        @apply w-full py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all bg-white resize-none overflow-scroll [&::-webkit-scrollbar]:hidden;
     }
 }
