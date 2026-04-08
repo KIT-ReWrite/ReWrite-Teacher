@@ -10,7 +10,7 @@ import SignupPage from "@/pages/signup/SignupPage"
 import StudentDetailPage from "@/pages/students/StudentDetailPage"
 import StudentsPage from "@/pages/students/StudentsPage"
 import SubmissionsPage from "@/pages/submissions/SubmissionsPage"
-import AuthGuard from "@/shared/lib/AuthGuard"
+// import AuthGuard from "@/shared/lib/AuthGuard"
 import RootRedirect from "@/shared/lib/RootRedirect"
 import { createBrowserRouter } from "react-router"
 
