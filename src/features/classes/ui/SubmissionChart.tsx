@@ -46,7 +46,7 @@ export function SubmissionChart() {
                             />
                             <Tooltip
                                 cursor={{
-                                    fill: "#F8FFFE",
+                                    fill: "#f8fffea5",
                                 }}
                                 contentStyle={{
                                     borderRadius: "12px",

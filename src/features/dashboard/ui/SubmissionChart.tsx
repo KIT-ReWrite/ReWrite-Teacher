@@ -17,7 +17,11 @@ export function SubmissionChart() {
                         <CartesianGrid vertical={false} strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis domain={[0, 100]} />
-                        <Tooltip />
+                        <Tooltip
+                            cursor={{
+                                fill: "#f8fffea5",
+                            }}
+                        />
                         <Bar dataKey="rate" fill="#4ECDC4" radius={[6, 6, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
