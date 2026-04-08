@@ -1,3 +1,5 @@
+import ClassDetailPage from "@/pages/classes/ClassDetailPage"
+import ClassesPage from "@/pages/classes/ClassesPage"
 import DashBoardPage from "@/pages/dashboard/DashBoard"
 import LoginPage from "@/pages/login/LoginPage"
 import MyPage from "@/pages/mypage/MyPage"
@@ -32,6 +34,14 @@ export const router = createBrowserRouter(
                         {
                             path: "/mypage",
                             element: <MyPage />,
+                        },
+                        {
+                            path: "/classes",
+                            element: <ClassesPage />,
+                        },
+                        {
+                            path: "/classes/:id",
+                            element: <ClassDetailPage />,
                         },
                     ],
                 },
