@@ -1,26 +1,20 @@
-import { mockClasses, mockAssignments } from "@/shared/model/mockData"
-import { useState } from "react"
+import {
+    useClassesQuery,
+    useClassDetailQuery,
+    useClassAssignmentsQuery,
+} from "@/entities/classes/queries/classes.queries"
 
 export function useClasses() {
-    return mockClasses
+    const { data, isLoading } = useClassesQuery()
+    return { classes: data ?? [], isLoading }
 }
 
 export function useClassDetail(id: number) {
-    return mockClasses.find((c) => c.id === id)
+    const { data, isLoading } = useClassDetailQuery(id)
+    return { cls: data, isLoading }
 }
 
 export function useAssignments(classId: number) {
-    return mockAssignments.filter((a) => a.class_id === classId)
-}
-
-export function useCopyCode() {
-    const [copiedCode, setCopiedCode] = useState<string | null>(null)
-
-    const copy = (code: string) => {
-        navigator.clipboard.writeText(code)
-        setCopiedCode(code)
-        setTimeout(() => setCopiedCode(null), 2000)
-    }
-
-    return { copiedCode, copy }
+    const { data, isLoading } = useClassAssignmentsQuery(classId)
+    return { assignments: data ?? [], isLoading }
 }

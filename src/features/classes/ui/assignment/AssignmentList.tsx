@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom"
 import { useAssignments } from "../../model/classes.selector"
 import { AssignmentItem } from "./AssignmentItem"
 
-export function AssignmentList({ classId, totalStudents }: any) {
+export function AssignmentList({ classId, totalStudents }: { classId: number; totalStudents: number }) {
     const navigate = useNavigate()
-    const assignments = useAssignments(classId)
+    const { assignments, isLoading } = useAssignments(classId)
 
     return (
         <div className="lg:col-span-2 space-y-6">
@@ -24,11 +24,23 @@ export function AssignmentList({ classId, totalStudents }: any) {
                     </button>
                 </div>
 
-                <div className="space-y-3">
-                    {assignments.map((a) => (
-                        <AssignmentItem key={a.id} assignment={a} totalStudents={totalStudents} />
-                    ))}
-                </div>
+                {isLoading ? (
+                    <div className="space-y-3">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="h-16 bg-gray-50 animate-pulse rounded-xl" />
+                        ))}
+                    </div>
+                ) : assignments.length === 0 ? (
+                    <div className="flex items-center justify-center py-10 text-text-secondary text-sm">
+                        아직 과제가 없습니다.
+                    </div>
+                ) : (
+                    <div className="space-y-3">
+                        {assignments.map((a) => (
+                            <AssignmentItem key={a.id} assignment={a} totalStudents={totalStudents} />
+                        ))}
+                    </div>
+                )}
             </Card>
         </div>
     )

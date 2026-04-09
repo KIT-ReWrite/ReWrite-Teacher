@@ -1,12 +1,13 @@
-import { StatusBadge } from "@/shared/ui/StatusBadge"
 import { useNavigate } from "react-router-dom"
+import type { IAssignment } from "@/entities/classes/api/classes.api.type"
 
-export function AssignmentItem({ assignment, totalStudents }: any) {
+export function AssignmentItem({ assignment }: { assignment: IAssignment; totalStudents: number }) {
     const navigate = useNavigate()
+
+    const isPast = new Date(assignment.due_date) < new Date()
 
     return (
         <div
-            key={assignment.id}
             onClick={() => navigate(`/assignments/${assignment.id}/submissions`)}
             className="p-4 rounded-xl border border-gray-100 hover:border-primary/30 hover:bg-primary-light/10 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4"
         >
@@ -17,10 +18,13 @@ export function AssignmentItem({ assignment, totalStudents }: any) {
                 </p>
             </div>
             <div className="flex items-center gap-3">
-                <div className="text-sm text-text-secondary">
-                    제출 <span className="font-bold text-text-primary">15</span>/{totalStudents}
-                </div>
-                <StatusBadge status={assignment.status} />
+                <span
+                    className={`text-xs px-2 py-1 rounded-full font-medium ${
+                        isPast ? "bg-gray-100 text-gray-500" : "bg-primary-light text-primary"
+                    }`}
+                >
+                    {isPast ? "마감" : "진행중"}
+                </span>
             </div>
         </div>
     )
