@@ -11,4 +11,10 @@ export const API_PATH = {
     DASHBOARD: {
         TEACHER: "/dashboard/teacher",
     },
+    CLASSES: {
+        LIST: "/classes",
+        DETAIL: (id: number) => `/classes/${id}`,
+        STATS: (id: number) => `/classes/${id}/stats`,
+        ASSIGNMENTS: (id: number) => `/classes/${id}/assignments`,
+    },
 } as const
