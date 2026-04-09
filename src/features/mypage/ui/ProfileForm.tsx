@@ -1,12 +1,12 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { User, Building, Book } from "lucide-react"
-import { useTeacherProfile } from "../model/mypage.selector"
+import { useProfile } from "../model/mypage.selector"
 import { useUpdateMeMutation } from "@/entities/auth/queries/auth.queries"
 import type { IUpdateUserRequest } from "@/entities/auth/api/auth.api.type"
 
 export function ProfileForm() {
-    const { data: teacher, isLoading } = useTeacherProfile()
+    const { data: teacher, isLoading } = useProfile()
     const { mutate: updateMe, isPending } = useUpdateMeMutation()
 
     const {
