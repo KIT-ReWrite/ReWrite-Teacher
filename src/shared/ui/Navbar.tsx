@@ -29,6 +29,7 @@ export function Navbar() {
         logout(undefined, {
             onSettled: () => {
                 localStorage.removeItem("accessToken")
+                localStorage.removeItem("refreshToken")
                 localStorage.removeItem("user")
                 navigate("/login")
             },
