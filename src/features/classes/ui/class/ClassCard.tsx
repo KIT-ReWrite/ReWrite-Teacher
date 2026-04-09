@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom"
 import { Copy, Check, Users, BookOpen } from "lucide-react"
 import { useState } from "react"
 import type { IClass } from "@/entities/classes/api/classes.api.type"
+import { useClassDetailQuery } from "@/entities/classes/queries/classes.queries"
 
-export function ClassCard({ cls }: { cls: IClass & { student_count?: number } }) {
+export function ClassCard({ cls }: { cls: IClass }) {
     const navigate = useNavigate()
     const [copiedCode, setCopiedCode] = useState(false)
+    const { data: detail } = useClassDetailQuery(cls.id)
 
     const copyToClipboard = (e: React.MouseEvent) => {
         e.stopPropagation()
@@ -39,11 +41,19 @@ export function ClassCard({ cls }: { cls: IClass & { student_count?: number } })
                     <div className="flex items-center gap-4 text-sm text-text-secondary">
                         <div className="flex items-center gap-1.5">
                             <Users size={16} />
-                            학생 {cls.student_count ?? "-"}명
+                            {detail ? (
+                                `학생 ${detail.student_count}명`
+                            ) : (
+                                <span className="w-12 h-4 bg-gray-100 animate-pulse rounded inline-block" />
+                            )}
                         </div>
                         <div className="flex items-center gap-1.5">
                             <BookOpen size={16} />
-                            과제 -개
+                            {detail ? (
+                                `과제 ${detail.assignment_count}개`
+                            ) : (
+                                <span className="w-12 h-4 bg-gray-100 animate-pulse rounded inline-block" />
+                            )}
                         </div>
                     </div>
                 </div>
