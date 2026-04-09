@@ -1,6 +1,15 @@
-import { mockClasses } from "@/shared/model/mockData"
+import { useClassesQuery } from "@/entities/classes/queries/classes.queries"
+import type { AssignmentForm } from "@/features/assignments/model/assignmentCreate.type"
 
-export function AssignmentStep1({ formData, setFormData }: any) {
+export function AssignmentStep1({
+    formData,
+    setFormData,
+}: {
+    formData: AssignmentForm
+    setFormData: (data: AssignmentForm) => void
+}) {
+    const { data: classes, isLoading } = useClassesQuery()
+
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
             <div>
@@ -9,10 +18,11 @@ export function AssignmentStep1({ formData, setFormData }: any) {
                     className="notion-input appearance-none p-2"
                     value={formData.classId}
                     onChange={(e) => setFormData({ ...formData, classId: e.target.value })}
+                    disabled={isLoading}
                     required
                 >
                     <option value="">학급을 선택하세요</option>
-                    {mockClasses.map((c) => (
+                    {classes?.map((c) => (
                         <option key={c.id} value={c.id}>
                             {c.name}
                         </option>
@@ -25,6 +35,7 @@ export function AssignmentStep1({ formData, setFormData }: any) {
                 <input
                     type="text"
                     className="notion-input p-2"
+                    placeholder="과제 제목을 입력하세요"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     required

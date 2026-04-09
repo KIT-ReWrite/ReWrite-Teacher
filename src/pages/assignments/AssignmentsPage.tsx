@@ -2,16 +2,16 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { PageLayout } from "@/shared/ui/PageLayout"
 import { PlusCircle } from "lucide-react"
-
 import { AssignmentsFilter } from "@/features/assignments/ui/AssignmentsFilter"
 import { AssignmentCard } from "@/features/assignments/ui/AssignmentCard"
-import { getFilteredAssignments } from "@/features/assignments/model/assignments.selector"
+import { useFilteredAssignments } from "@/features/assignments/model/assignments.selector"
 
 function AssignmentsPage() {
     const navigate = useNavigate()
     const [selectedClass, setSelectedClass] = useState("all")
 
-    const assignments = getFilteredAssignments(selectedClass)
+    const classId = selectedClass === "all" ? undefined : Number(selectedClass)
+    const { assignments, isLoading } = useFilteredAssignments(classId)
 
     return (
         <PageLayout
@@ -28,11 +28,24 @@ function AssignmentsPage() {
         >
             <AssignmentsFilter selectedClass={selectedClass} onChange={setSelectedClass} />
 
-            <div className="space-y-4">
-                {assignments.map((assignment: any) => (
-                    <AssignmentCard key={assignment.id} assignment={assignment} />
-                ))}
-            </div>
+            {isLoading ? (
+                <div className="space-y-4">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="h-28 bg-gray-100 animate-pulse rounded-2xl" />
+                    ))}
+                </div>
+            ) : assignments.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 text-text-secondary">
+                    <p className="text-lg font-medium">과제가 없습니다.</p>
+                    <p className="text-sm mt-1">새 과제 만들기 버튼을 눌러 과제를 출제해보세요!</p>
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    {assignments.map((assignment) => (
+                        <AssignmentCard key={assignment.id} assignment={assignment} />
+                    ))}
+                </div>
+            )}
         </PageLayout>
     )
 }

@@ -3,23 +3,42 @@ import { PageLayout } from "@/shared/ui/PageLayout"
 import { Card } from "@/shared/ui/Card"
 import { StepIndicator } from "@/shared/ui/StepIndicator"
 import { ArrowLeft } from "lucide-react"
-
 import { useAssignmentCreate } from "@/features/assignments/model/assignmentCreate.store"
 import { AssignmentStep1 } from "@/features/assignments/ui/create/AssignmentStep1"
 import { AssignmentStep2 } from "@/features/assignments/ui/create/AssignmentStep2"
 import { AssignmentStep3 } from "@/features/assignments/ui/create/AssignmentStep3"
 import { AssignmentSummary } from "@/features/assignments/ui/create/AssignmentSummary"
+import { useCreateAssignmentMutation } from "@/entities/assignments/queries/assignments.queries"
 
 function AssignmentCreatePage() {
     const navigate = useNavigate()
     const { step, formData, setFormData, next, back } = useAssignmentCreate()
+    const { mutate: createAssignment, isPending } = useCreateAssignmentMutation()
 
     const steps = ["기본 정보", "과제 내용", "마감일 설정"]
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        alert("과제가 생성되었습니다.")
-        navigate("/assignments")
+
+        if (step < 3) {
+            next()
+            return
+        }
+
+        // due_date 조합
+        const due_date = new Date(`${formData.dueDate}T${formData.dueTime}`).toISOString()
+
+        createAssignment(
+            {
+                class_id: Number(formData.classId),
+                title: formData.title,
+                description: formData.description,
+                due_date,
+            },
+            {
+                onSuccess: () => navigate("/assignments"),
+            }
+        )
     }
 
     return (
@@ -38,20 +57,9 @@ function AssignmentCreatePage() {
                 <StepIndicator currentStep={step} steps={steps} />
 
                 <Card className="p-6 sm:p-8 mt-8">
-                    <form
-                        onSubmit={
-                            step === 3
-                                ? handleSubmit
-                                : (e) => {
-                                      e.preventDefault()
-                                      next()
-                                  }
-                        }
-                    >
+                    <form onSubmit={handleSubmit}>
                         {step === 1 && <AssignmentStep1 formData={formData} setFormData={setFormData} />}
-
                         {step === 2 && <AssignmentStep2 formData={formData} setFormData={setFormData} />}
-
                         {step === 3 && (
                             <>
                                 <AssignmentStep3 formData={formData} setFormData={setFormData} />
@@ -70,8 +78,12 @@ function AssignmentCreatePage() {
                                 이전
                             </button>
 
-                            <button type="submit" className="px-8 py-2.5 rounded-xl bg-primary text-white">
-                                {step === 3 ? "과제 생성하기" : "다음"}
+                            <button
+                                type="submit"
+                                disabled={isPending}
+                                className="px-8 py-2.5 rounded-xl bg-primary text-white hover:bg-primary-hover transition-colors disabled:opacity-50"
+                            >
+                                {isPending ? "생성 중..." : step === 3 ? "과제 생성하기" : "다음"}
                             </button>
                         </div>
                     </form>

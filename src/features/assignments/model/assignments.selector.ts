@@ -1,7 +1,9 @@
-import { mockAssignments } from "@/shared/model/mockData"
+import { useAssignmentsQuery } from "@/entities/assignments/queries/assignments.queries"
 
-export function getFilteredAssignments(selectedClass: string) {
-    if (selectedClass === "all") return mockAssignments
-
-    return mockAssignments.filter((a) => a.class_id === Number(selectedClass))
+export function useFilteredAssignments(classId?: number) {
+    const { data, isLoading } = useAssignmentsQuery(classId === undefined ? undefined : classId)
+    return {
+        assignments: data ?? [],
+        isLoading,
+    }
 }
