@@ -17,4 +17,8 @@ export const API_PATH = {
         STATS: (id: number) => `/classes/${id}/stats`,
         ASSIGNMENTS: (id: number) => `/classes/${id}/assignments`,
     },
+    ASSIGNMENTS: {
+        LIST: "/assignments",
+        DETAIL: (id: number) => `/assignments/${id}`,
+    },
 } as const
