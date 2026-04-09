@@ -2,12 +2,14 @@ import { PageLayout } from "@/shared/ui/PageLayout"
 import { StatsCards } from "@/features/dashboard/ui/StatsCard"
 import { SubmissionChart } from "@/features/dashboard/ui/SubmissionChart"
 import { FeedbackStudents } from "@/features/dashboard/ui/FeedbackStudents"
-import { currentTeacher } from "@/shared/model/mockData"
+import { useMeQuery } from "@/entities/auth/queries/auth.queries"
 
 function DashBoardPage() {
+    const { data: me } = useMeQuery()
+
     return (
         <PageLayout
-            title={`안녕하세요, ${currentTeacher.name} 선생님! 👨‍🏫`}
+            title={`안녕하세요, ${me?.name ?? "선생님"} 선생님! 👨‍🏫`}
             description="오늘의 학급 현황을 확인하세요."
         >
             <StatsCards />
