@@ -1,6 +1,5 @@
-export interface Student {
-    id: number
-    name: string
-    student_number: string
-    recent_score: number
-}
+export type {
+    IAIAttentionStudent,
+    ISubmissionRateByClass,
+    IDashboardResponse,
+} from "@/entities/dashboard/api/dashboard.api.type"
