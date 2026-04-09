@@ -8,4 +8,7 @@ export const API_PATH = {
         ME: "/users/me",
         PROFILE_IMAGE: "/users/me/profile-image",
     },
+    DASHBOARD: {
+        TEACHER: "/dashboard/teacher",
+    },
 } as const
