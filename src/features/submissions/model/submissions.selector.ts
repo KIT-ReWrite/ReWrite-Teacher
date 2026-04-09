@@ -1,5 +1,9 @@
-import { mockSubmissions } from "@/shared/model/mockData"
+import { useSubmissionsQuery } from "@/entities/submissions/queries/submissions.queries"
 
-export function getSubmissions() {
-    return mockSubmissions
+export function useSubmissions(assignmentId: number, status?: string) {
+    const { data, isLoading } = useSubmissionsQuery(assignmentId, status)
+    return {
+        submissions: data ?? [],
+        isLoading,
+    }
 }
