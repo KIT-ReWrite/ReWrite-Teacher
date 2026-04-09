@@ -33,11 +33,14 @@ export interface ILoginRequest {
 
 /** 로그인 응답 타입 (백엔드 기준) */
 export interface ILoginResponse {
-    token: string
+    access_token: string
+    refresh_token: string
     user: {
         id: string
         username: string
+        name: string
         role: "teacher" | "student"
+        profile_image: string
     }
 }
 

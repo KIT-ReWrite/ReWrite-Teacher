@@ -5,6 +5,7 @@ import { useNavigate } from "react-router"
 import { AxiosError } from "axios"
 import { teacherLoginSchema, type TeacherLoginFormData } from "@/features/auth/model/auth.schema"
 import { useLoginMutation } from "@/entities/auth/queries/auth.queries"
+import type { IStoredUser } from "@/entities/auth/api/auth.api.type"
 
 const useLogin = () => {
     const navigate = useNavigate()
@@ -36,14 +37,17 @@ const useLogin = () => {
                 return
             }
 
-            localStorage.setItem("accessToken", response.token)
+            localStorage.setItem("accessToken", response.access_token)
+            localStorage.setItem("refreshToken", response.refresh_token)
             localStorage.setItem(
                 "user",
                 JSON.stringify({
                     id: response.user.id,
                     username: response.user.username,
+                    name: response.user.name,
                     role: response.user.role,
-                })
+                    profile_image: response.user.profile_image,
+                } satisfies IStoredUser)
             )
             navigate("/dashboard")
         } catch (error) {
