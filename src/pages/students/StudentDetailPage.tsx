@@ -44,7 +44,7 @@ function StudentDetailPage() {
             <div className="flex items-center gap-4 mb-8">
                 {student.profile_image ? (
                     <img
-                        src={student.profile_image}
+                        src={`${import.meta.env.VITE_API_BASE_URL}${student.profile_image}`}
                         alt={student.name}
                         className="w-16 h-16 rounded-full object-cover"
                     />

@@ -30,7 +30,7 @@ export function SubmissionTable({ submissions }: { submissions: ISubmission[] })
                                 <div className="flex items-center gap-2">
                                     {sub.student.profile_image ? (
                                         <img
-                                            src={sub.student.profile_image}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}${sub.student.profile_image}`}
                                             alt={sub.student.name}
                                             className="w-7 h-7 rounded-full object-cover"
                                         />

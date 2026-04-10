@@ -34,7 +34,7 @@ export function FeedbackStudents() {
                             <div className="flex items-center gap-3">
                                 {student.profile_image ? (
                                     <img
-                                        src={student.profile_image}
+                                        src={`${import.meta.env.VITE_API_BASE_URL}${student.profile_image}`}
                                         alt={student.name}
                                         className="w-9 h-9 rounded-full object-cover"
                                     />
