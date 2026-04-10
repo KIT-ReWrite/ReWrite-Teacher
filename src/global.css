@@ -7,6 +7,16 @@
     body {
         @apply bg-background text-text-primary font-sans antialiased;
     }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
 }
 
 /* ================== THEME (config → css 변환) ================== */
