@@ -1,6 +1,11 @@
 import { ApiHelper } from "@/shared/api/api.base"
 import { API_PATH } from "@/shared/api/api.path"
-import type { IAssignment, IAssignmentDetail, ICreateAssignmentRequest } from "./assignments.api.type"
+import type {
+    IAssignment,
+    IAssignmentDetail,
+    ICreateAssignmentRequest,
+    IUpdateAssignmentRequest,
+} from "./assignments.api.type"
 
 export const assignmentsApi = {
     /** 전체 과제 목록 (classId 필터) */
@@ -16,4 +21,11 @@ export const assignmentsApi = {
     /** 과제 상세 */
     getAssignmentDetail: async (assignmentId: number) =>
         ApiHelper.get<IAssignmentDetail>(API_PATH.ASSIGNMENTS.DETAIL(assignmentId)),
+
+    updateAssignment: async (assignmentId: number, body: IUpdateAssignmentRequest) =>
+        ApiHelper.patch<IAssignment>(API_PATH.ASSIGNMENTS.DETAIL(assignmentId), body),
+
+    // ✅ 추가
+    deleteAssignment: async (assignmentId: number) =>
+        ApiHelper.delete<{ message: string }>(API_PATH.ASSIGNMENTS.DETAIL(assignmentId)),
 }

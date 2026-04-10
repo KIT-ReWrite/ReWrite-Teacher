@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "react-toastify"
 import { assignmentsApi } from "../api/assignments.api"
-import type { ICreateAssignmentRequest } from "../api/assignments.api.type"
+import type { ICreateAssignmentRequest, IUpdateAssignmentRequest } from "../api/assignments.api.type"
 
 export const ASSIGNMENT_KEYS = {
     all: ["assignments"] as const,
@@ -34,5 +34,30 @@ export const useCreateAssignmentMutation = () => {
             toast.success("과제가 생성되었습니다.")
         },
         onError: (error: any) => toast.error(error?.response?.data?.message ?? "과제 생성에 실패했습니다."),
+    })
+}
+
+export const useUpdateAssignmentMutation = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: ({ id, body }: { id: number; body: IUpdateAssignmentRequest }) =>
+            assignmentsApi.updateAssignment(id, body),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ASSIGNMENT_KEYS.all })
+            toast.success("과제가 수정되었습니다.")
+        },
+        onError: (error: any) => toast.error(error?.response?.data?.message ?? "과제 수정에 실패했습니다."),
+    })
+}
+
+export const useDeleteAssignmentMutation = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: (id: number) => assignmentsApi.deleteAssignment(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ASSIGNMENT_KEYS.all })
+            toast.success("과제가 삭제되었습니다.")
+        },
+        onError: (error: any) => toast.error(error?.response?.data?.message ?? "과제 삭제에 실패했습니다."),
     })
 }

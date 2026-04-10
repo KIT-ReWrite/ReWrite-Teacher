@@ -27,3 +27,9 @@ export interface ICreateAssignmentRequest {
     description: string
     due_date: string
 }
+
+export interface IUpdateAssignmentRequest {
+    title?: string
+    description?: string
+    due_date?: string
+}
