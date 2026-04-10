@@ -1,20 +1,25 @@
 import { Card } from "@/shared/ui/Card"
-import { Calendar, ChevronRight } from "lucide-react"
+import { Calendar, ChevronRight, Pencil, Trash2 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import type { IAssignment } from "@/entities/assignments/api/assignments.api.type"
 
-export function AssignmentCard({ assignment }: { assignment: IAssignment }) {
-    const navigate = useNavigate()
+interface Props {
+    assignment: IAssignment
+    onEdit?: () => void
+    onDelete?: () => void
+}
 
+export function AssignmentCard({ assignment, onEdit, onDelete }: Props) {
+    const navigate = useNavigate()
     const isPast = new Date(assignment.due_date) < new Date()
 
     return (
-        <Card
-            hoverable
-            onClick={() => navigate(`/assignments/${assignment.id}/submissions`)}
-            className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-        >
-            <div className="flex-1">
+        <Card className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            {/* 클릭 영역 */}
+            <div
+                className="flex-1 cursor-pointer"
+                onClick={() => navigate(`/assignments/${assignment.id}/submissions`)}
+            >
                 <div className="text-xs font-medium text-text-secondary bg-gray-100 px-2 py-1 rounded-md inline-block mb-2">
                     {assignment.class?.name ?? "-"}
                 </div>
@@ -36,8 +41,43 @@ export function AssignmentCard({ assignment }: { assignment: IAssignment }) {
                 </div>
             </div>
 
-            <div className="flex items-center gap-2 text-primary font-medium text-sm">
-                제출물 확인 <ChevronRight size={16} />
+            {/* 버튼 영역 */}
+            <div className="flex items-center gap-2 shrink-0">
+                {/* 수정 */}
+                {onEdit && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            onEdit()
+                        }}
+                        className="p-2 text-text-secondary hover:text-primary hover:bg-primary-light rounded-lg transition-colors"
+                        title="과제 수정"
+                    >
+                        <Pencil size={16} />
+                    </button>
+                )}
+
+                {/* 삭제 */}
+                {onDelete && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            onDelete()
+                        }}
+                        className="p-2 text-text-secondary hover:text-accent hover:bg-red-50 rounded-lg transition-colors"
+                        title="과제 삭제"
+                    >
+                        <Trash2 size={16} />
+                    </button>
+                )}
+
+                {/* 제출물 확인 */}
+                <button
+                    onClick={() => navigate(`/assignments/${assignment.id}/submissions`)}
+                    className="flex items-center gap-1.5 px-3 py-2 text-primary font-medium text-sm hover:bg-primary-light rounded-lg transition-colors"
+                >
+                    제출물 확인 <ChevronRight size={16} />
+                </button>
             </div>
         </Card>
     )

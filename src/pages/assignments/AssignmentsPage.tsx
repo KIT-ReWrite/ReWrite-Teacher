@@ -4,14 +4,24 @@ import { PageLayout } from "@/shared/ui/PageLayout"
 import { PlusCircle } from "lucide-react"
 import { AssignmentsFilter } from "@/features/assignments/ui/AssignmentsFilter"
 import { AssignmentCard } from "@/features/assignments/ui/AssignmentCard"
+import { AssignmentEditModal } from "@/features/assignments/ui/AssignmentEditModal"
 import { useFilteredAssignments } from "@/features/assignments/model/assignments.selector"
+import { useDeleteAssignmentMutation } from "@/entities/assignments/queries/assignments.queries"
+import type { IAssignment } from "@/entities/assignments/api/assignments.api.type"
 
 function AssignmentsPage() {
     const navigate = useNavigate()
     const [selectedClass, setSelectedClass] = useState("all")
+    const [editTarget, setEditTarget] = useState<IAssignment | null>(null)
 
     const classId = selectedClass === "all" ? undefined : Number(selectedClass)
     const { assignments, isLoading } = useFilteredAssignments(classId)
+    const { mutate: deleteAssignment } = useDeleteAssignmentMutation()
+
+    const handleDelete = (id: number) => {
+        if (!confirm("과제를 삭제하시겠습니까? 관련 제출물도 모두 삭제됩니다.")) return
+        deleteAssignment(id)
+    }
 
     return (
         <PageLayout
@@ -42,10 +52,18 @@ function AssignmentsPage() {
             ) : (
                 <div className="space-y-4">
                     {assignments.map((assignment) => (
-                        <AssignmentCard key={assignment.id} assignment={assignment} />
+                        <AssignmentCard
+                            key={assignment.id}
+                            assignment={assignment}
+                            onEdit={() => setEditTarget(assignment)}
+                            onDelete={() => handleDelete(assignment.id)}
+                        />
                     ))}
                 </div>
             )}
+
+            {/* 수정 모달 */}
+            <AssignmentEditModal assignment={editTarget} onClose={() => setEditTarget(null)} />
         </PageLayout>
     )
 }
