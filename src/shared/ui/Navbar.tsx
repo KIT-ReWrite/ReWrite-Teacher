@@ -3,12 +3,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { BookOpen, Home, FileText, Users, PlusCircle, Menu, X, LogOut } from "lucide-react"
 import { useLogoutMutation } from "@/entities/auth/queries/auth.queries"
 import { useProfile } from "@/features/mypage/model/mypage.selector"
+import { useQueryClient } from "@tanstack/react-query"
 
 export function Navbar() {
     const location = useLocation()
     const navigate = useNavigate()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+    const queryClient = useQueryClient()
     const { data } = useProfile()
 
     const { mutate: logout, isPending: isLoggingOut } = useLogoutMutation()
@@ -31,6 +33,9 @@ export function Navbar() {
                 localStorage.removeItem("accessToken")
                 localStorage.removeItem("refreshToken")
                 localStorage.removeItem("user")
+
+                queryClient.clear()
+
                 navigate("/login")
             },
         })
