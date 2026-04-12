@@ -29,7 +29,8 @@ export function FeedbackStudents() {
                     {students.map((student) => (
                         <div
                             key={student.student_id}
-                            className="flex justify-between items-center p-4 bg-gray-50 rounded-xl"
+                            className="flex justify-between items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+                            onClick={() => navigate(`/assignments/${student.assignment_id}/submissions`)}
                         >
                             <div className="flex items-center gap-3">
                                 {student.profile_image ? (
@@ -52,17 +53,12 @@ export function FeedbackStudents() {
                                         </span>
                                     </h3>
                                     <p className="text-xs text-red-500">
-                                        미완료 {student.pending_count}건 · {student.latest_assignment}
+                                        피드백 미완료 {student.pending_count}건 · {student.latest_assignment}
                                     </p>
                                 </div>
                             </div>
 
-                            <button
-                                onClick={() => navigate(`/students/${student.student_id}`)}
-                                className="p-1 hover:bg-gray-200 rounded-full transition-colors"
-                            >
-                                <ChevronRight size={20} />
-                            </button>
+                            <ChevronRight size={20} className="text-gray-400 shrink-0" />
                         </div>
                     ))}
                 </div>

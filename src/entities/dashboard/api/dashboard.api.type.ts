@@ -10,6 +10,7 @@ export interface IAIAttentionStudent {
     profile_image: string
     pending_count: number
     latest_assignment: string
+    assignment_id: number
     class_name: string
 }
 
